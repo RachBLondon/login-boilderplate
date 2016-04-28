@@ -12,7 +12,7 @@ class Signin extends Component {
   }
 
   renderAlert(){
-    if (this.props.errror){
+    if (this.props.errorMessage){
       return(
         <div className="alert alert-danger">
           <strong> Opps! </strong> {this.props.errorMessage}
@@ -23,6 +23,7 @@ class Signin extends Component {
 
   render(){
     console.log("this state", this.state);
+    console.log("props", this.props);
     const { handleSubmit , fields :{ email, password }} = this.props;
     return (
       <form onSubmit={handleSubmit(this.handleFormSubmit.bind(this))}>
