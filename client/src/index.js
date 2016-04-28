@@ -1,15 +1,42 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import { createStore, applyMiddleware } from 'redux';
+import { createStore, applyMiddleware, compose } from 'redux';
+import {Router, Route, IndexRoute, browserHistory} from 'react-router';
+import reduxThunk from 'redux-thunk';
 
 import App from './components/app';
-import reducers from './reducers';
+import Signin from './components/auth/Signin';
+import Signout from './components/auth/Signout';
+import Signup from './components/auth/Signup';
 
-const createStoreWithMiddleware = applyMiddleware()(createStore);
+import rootReducer from './reducers';
+import DevTools from './components/DevTools'
 
-ReactDOM.render(
-  <Provider store={createStoreWithMiddleware(reducers)}>
-    <App />
-  </Provider>
+
+
+export default function configureStore(initialState){
+  const createStoreWithMiddleWare =  createStore(
+        rootReducer,
+        initialState,
+          compose(
+            applyMiddleware(reduxThunk),
+            DevTools.instrument())
+          )
+    return createStoreWithMiddleWare;
+  }
+
+  const store = configureStore({});
+
+
+  ReactDOM.render(
+    <Provider store={store}>
+      <Router history={browserHistory}>
+        <Route path="/" component={App}>
+          <Route path="signin" component={Signin}/>
+          <Route path="signout" component={Signout}/>
+          <Route path="signup" component={Signup}/>
+        </Route>
+      </Router>
+    </Provider>
   , document.querySelector('.container'));
