@@ -8,6 +8,7 @@ import reduxThunk from 'redux-thunk';
 import App from './components/app';
 import Signin from './components/auth/Signin';
 import Signout from './components/auth/Signout';
+import Signup from './components/auth/Signup';
 
 import rootReducer from './reducers';
 import DevTools from './components/DevTools'
@@ -34,6 +35,7 @@ export default function configureStore(initialState){
         <Route path="/" component={App}>
           <Route path="signin" component={Signin}/>
           <Route path="signout" component={Signout}/>
+          <Route path="signup" component={Signup}/>
         </Route>
       </Router>
     </Provider>
