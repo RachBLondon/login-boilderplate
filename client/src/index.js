@@ -7,6 +7,8 @@ import reduxThunk from 'redux-thunk';
 
 import App from './components/app';
 import Signin from './components/auth/Signin';
+import Signout from './components/auth/Signout';
+
 import rootReducer from './reducers';
 import DevTools from './components/DevTools'
 
@@ -14,30 +16,25 @@ import DevTools from './components/DevTools'
 
 export default function configureStore(initialState){
   const createStoreWithMiddleWare =  createStore(
-      rootReducer,
-      initialState,
-        compose(
-          applyMiddleware(reduxThunk),
-          DevTools.instrument())
-        )
-  return createStoreWithMiddleWare;
-}
+        rootReducer,
+        initialState,
+          compose(
+            applyMiddleware(reduxThunk),
+            DevTools.instrument())
+          )
+    return createStoreWithMiddleWare;
+  }
 
-const store = configureStore({});
+  const store = configureStore({});
 
-// const createStoreWithMiddleware = createStore(compose(
-//     applyMiddleware(reduxThunk),
-//     DevTools.instrument()
-//   ));
 
-// applyMiddleware(reduxThunk)(createStore);
-
-ReactDOM.render(
-  <Provider store={store}>
-    <Router history={browserHistory}>
-      <Route path="/" component={App}>
-        <Route path="signin" component={Signin}/>
-      </Route>
-    </Router>
-  </Provider>
+  ReactDOM.render(
+    <Provider store={store}>
+      <Router history={browserHistory}>
+        <Route path="/" component={App}>
+          <Route path="signin" component={Signin}/>
+          <Route path="signout" component={Signout}/>
+        </Route>
+      </Router>
+    </Provider>
   , document.querySelector('.container'));

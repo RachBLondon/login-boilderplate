@@ -5,19 +5,31 @@ import { Link } from 'react-router'
 class Header extends Component {
   linkHeader(){
     if (this.props.authenticated){
-      return (<Link to="/signin"> Sign Out</Link>)
+      return (
+        <li className="nav-item">
+          <Link className="nav-link" to="/signout"> Sign Out </Link>
+        </li>
+      )
     } else {
-      return (<Link to="/signin"> Sign in</Link>)
+      return [
+        <li className="nav-item"key={1}>
+          <Link className="nav-link" to="/signin" >Sign in </Link>
+        </li>,
+        <li className="nav-item" key={2}>
+          <Link className="nav-link" to="/signup">Sign up </Link>
+        </li>
+      ];
     }
   }
 
   render(){
     return(
       <nav className="navbar navbar-light">
+        <Link to="/" className="navbar-brand"> Redux Auth </Link>
         <ul className="nav navbar-nav">
-          <li className="nav-item">
+        
             {this.linkHeader()}
-          </li>
+
         </ul>
       </nav>
     )
@@ -30,4 +42,4 @@ const mapStateToProps = (state) => {
   }
 }
 
-export default connect(mapStateToProps, null)(Header);
+export default connect(mapStateToProps)(Header);
