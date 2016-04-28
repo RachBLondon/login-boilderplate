@@ -1,14 +1,22 @@
-import React, { Component } from 'react';
-
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import { Link } from 'react-router'
 
 class Header extends Component {
+  linkHeader(){
+    if (this.props.authenticated){
+      return (<Link to="/signin"> Sign Out</Link>)
+    } else {
+      return (<Link to="/signin"> Sign in</Link>)
+    }
+  }
 
   render(){
     return(
       <nav className="navbar navbar-light">
         <ul className="nav navbar-nav">
           <li className="nav-item">
-            Sign in
+            {this.linkHeader()}
           </li>
         </ul>
       </nav>
@@ -16,4 +24,10 @@ class Header extends Component {
   }
 }
 
-export default Header;
+const mapStateToProps = (state) => {
+  return{
+     authenticated : state.auth.authenticated
+  }
+}
+
+export default connect(mapStateToProps, null)(Header);
