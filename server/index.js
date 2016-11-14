@@ -19,6 +19,7 @@ app.use(morgan('combined'));
 //any request will be parsed as json
 app.use(cors());
 app.use(bodyParser.json({ type: '*/*'}));
+app.use('/public', express.static(__dirname + '/public'))
 router(app);
 
 
